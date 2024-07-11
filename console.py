@@ -12,11 +12,11 @@ from models.amenity import Amenity
 from models.review import Review
 
 
-class HBNBCommand(cmd.Cmd):
-    """ Contains the functionality for the HBNB console"""
+class AirBnbCommand(cmd.Cmd):
+    """ Contains the functionality for the AirBnb console"""
 
     # determines prompt for interactive/non-interactive modes
-    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
+    prompt = '(AirBnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
         'BaseModel': BaseModel, 'User': User, 'Place': Place,
@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb)')
+            print('(AirBnb)')
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
@@ -55,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
 
             # isolate and validate <command>
             _cmd = pline[pline.find('.') + 1:pline.find('(')]
-            if _cmd not in HBNBCommand.dot_cmds:
+            if _cmd not in AirBnbCommand.dot_cmds:
                 raise Exception
 
             # if parantheses contain arguments, parse them
@@ -89,11 +89,11 @@ class HBNBCommand(cmd.Cmd):
     def postcmd(self, stop, line):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb) ', end='')
+            print('(AirBnb) ', end='')
         return stop
 
     def do_quit(self, command):
-        """ Method to exit the HBNB console"""
+        """ Method to exit the AirBnb console"""
         exit()
 
     def help_quit(self):
@@ -119,10 +119,10 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif my_list[0] not in HBNBCommand.classes:
+        elif my_list[0] not in AirBnbCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[my_list[0]]()
+        new_instance = AirBnbCommand.classes[my_list[0]]()
         print(new_instance.id)
         for params in my_list[1:]:
             key_value = params.split('=')
@@ -155,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if c_name not in HBNBCommand.classes:
+        if c_name not in AirBnbCommand.classes:
             print("** class doesn't exist **")
             return
 
@@ -186,7 +186,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if c_name not in HBNBCommand.classes:
+        if c_name not in AirBnbCommand.classes:
             print("** class doesn't exist **")
             return
 
@@ -214,7 +214,7 @@ class HBNBCommand(cmd.Cmd):
 
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
+            if args not in AirBnbCommand.classes:
                 print("** class doesn't exist **")
                 return
             for k, v in objects.items():
@@ -254,7 +254,7 @@ class HBNBCommand(cmd.Cmd):
         else:  # class name not present
             print("** class name missing **")
             return
-        if c_name not in HBNBCommand.classes:  # class name invalid
+        if c_name not in AirBnbCommand.classes:  # class name invalid
             print("** class doesn't exist **")
             return
 
@@ -318,8 +318,8 @@ class HBNBCommand(cmd.Cmd):
                     print("** value missing **")
                     return
                 # type cast as necessary
-                if att_name in HBNBCommand.types:
-                    att_val = HBNBCommand.types[att_name](att_val)
+                if att_name in AirBnbCommand.types:
+                    att_val = AirBnbCommand.types[att_name](att_val)
 
                 # update dictionary with name, value pair
                 new_dict.__dict__.update({att_name: att_val})
@@ -333,4 +333,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == "__main__":
-    HBNBCommand().cmdloop()
+    AirBnbCommand().cmdloop()
