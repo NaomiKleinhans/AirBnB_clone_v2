@@ -1,68 +1,64 @@
-# Prepare web server for deployment
+# Puppet manifest to set up the web_static deployment
 
-exec {'update':
-  provider => shell,
-  command  => 'sudo apt-get -y update',
-  before   => Exec['install nginx'],
+# Create /data directory
+file { '/data':
+  ensure => directory,
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
 }
 
-exec {'install nginx':
-  provider => shell,
-  command  => 'sudo apt-get -y install nginx',
-  before   => Exec['start nginx'],
+# Create /data/web_static directory
+file { '/data/web_static':
+  ensure => directory,
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
 }
 
-exec {'start nginx':
-  provider => shell,
-  command  => 'sudo service nginx start',
-  before   => Exec['create test directory'],
+# Create /data/web_static/releases directory
+file { '/data/web_static/releases':
+  ensure => directory,
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
 }
 
-exec {'create shared directory':
-  provider => shell,
-  command  => 'sudo mkdir -p /data/web_static/shared/',
-  before   => Exec['create test directory'],
+# Create /data/web_static/shared directory
+file { '/data/web_static/shared':
+  ensure => directory,
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
 }
 
-exec {'create test directory':
-  provider => shell,
-  command  => 'sudo mkdir -p /data/web_static/releases/test/',
-  before   => Exec['add test content'],
+# Create /data/web_static/releases/test directory
+file { '/data/web_static/releases/test':
+  ensure => directory,
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
 }
 
-exec {'add test content':
-  provider => shell,
-  command  => 'echo "<html>
-    <head>
-    </head>
-    <body>
-      Holberton School
-    </body>
-  </html>" > /data/web_static/releases/test/index.html',
-  before   => Exec['create symbolic link to current'],
-}
-
-exec {'create symbolic link to current':
-  provider => shell,
-  command  => 'sudo ln -sf /data/web_static/releases/test/ /data/web_static/current',
-  before   => File['/data/'],
-}
-
-file {'/data/':
-  ensure  => directory,
+# Create a simple index.html file
+file { '/data/web_static/releases/test/index.html':
+  ensure  => file,
+  content => '<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>',
   owner   => 'ubuntu',
   group   => 'ubuntu',
+}
+
+# Create a symbolic link from /data/web_static/current to /data/web_static/releases/test
+file { '/data/web_static/current':
+  ensure => link,
+  target => '/data/web_static/releases/test',
+}
+
+# Ensure correct permissions for all directories and files
+file { '/data':
   recurse => true,
-  before  => Exec['serve current to airbnb_static'],
-}
-
-exec {'serve current to airbnb_static':
-  provider => shell,
-  command  => 'sed -i "61i\ \n\tlocation /airbnb_static {\n\t\talias /data/web_static/current;\n\t\tautoindex off;\n\t}" /etc/nginx/sites-available/default',
-  before   => Exec['restart nginx'],
-}
-
-exec {'restart nginx':
-  provider => shell,
-  command  => 'sudo service nginx restart',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  mode    => '0755',
 }
