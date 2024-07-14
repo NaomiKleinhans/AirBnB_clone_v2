@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This script generates a .tgz archive from the contents of the web_static folder.
+This script generates a .tgz archive
 """
 
 from fabric.api import local
@@ -11,7 +11,7 @@ def do_pack():
     """
     Generates a .tgz archive from the contents of the web_static folder.
     Returns:
-        The archive path if the archive has been correctly generated. Otherwise, None.
+        The archive path. Otherwise, None.
     """
     # Create versions directory if it doesn't exist
     local("mkdir -p versions")
