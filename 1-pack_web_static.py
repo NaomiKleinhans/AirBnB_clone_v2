@@ -1,42 +1,35 @@
 #!/usr/bin/python3
 """
-<<<<<<< HEAD
 This script generates a .tgz archive.
-=======
-This script generates a .tgz archive
->>>>>>> 06c2e13cae15003c491aeda7f789f45b7aa905b7
 """
 
 from fabric.api import local
 from datetime import datetime
+import os
 
 
 def do_pack():
     """
     Generates a .tgz archive from the contents of the web_static folder.
     Returns:
-<<<<<<< HEAD
         The archive path otherwise none.
-=======
-        The archive path. Otherwise, None.
->>>>>>> 06c2e13cae15003c491aeda7f789f45b7aa905b7
     """
-    # Create versions directory if it doesn't exist
-    local("mkdir -p versions")
+    try:
+        # Create the folder if it doesn't exist
+        if not os.path.exists("versions"):
+            os.makedirs("versions")
 
-    now = datetime.now()
-    # Construct archive name based on current timestamp
-    archive_name = "versions/web_static_{}.tgz".format(now.strftime("%Y%m%d%H%M%S"))
+        # Current timestamp for the archive name
+        now = datetime.now()
+        timestamp = now.strftime("%Y%m%d%H%M%S")
 
-    # Construct tar command to compress web_static folder
-    command = "tar -cvzf {} web_static".format(archive_name)
+        # Create the archive file name
+        archive_path = "versions/web_static_{}.tgz".format(timestamp)
 
-    # Execute tar command locally
-    result = local(command)
+        # Create the .tgz file using tar
+        local("tar -cvzf {} web_static".format(archive_path))
 
-    # Check if command execution failed
-    if result.failed:
+        return archive_path
+
+    except Exception as e:
         return None
-
-    # Return path to generated archive
-    return archive_name
