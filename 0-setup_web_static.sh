@@ -13,7 +13,7 @@ sudo mkdir -p /data/web_static/shared/
 sudo tee /data/web_static/releases/test/index.html
 
 # Create a symbolic link
-sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current/
 
 # Give ownership of the /data/ folder to the ubuntu user AND group
 sudo chown -R ubuntu:ubuntu /data/
