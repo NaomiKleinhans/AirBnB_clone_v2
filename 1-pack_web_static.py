@@ -18,8 +18,7 @@ def do_pack():
 
     now = datetime.now()
     # Construct archive name based on current timestamp
-    archive_name = "versions/web_static_{}.tgz".format(
-        now.strftime("%Y%m%d%H%M%S"))
+    archive_name = "versions/web_static_{}.tgz".format(now.strftime("%Y%m%d%H%M%S"))
 
     # Construct tar command to compress web_static folder
     command = "tar -cvzf {} web_static".format(archive_name)
