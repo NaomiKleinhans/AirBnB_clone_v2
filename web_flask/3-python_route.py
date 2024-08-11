@@ -48,8 +48,8 @@ def c_is_fun(text):
     Handle the route '/c/<text>' where <text> is a dynamic URL parameter.
 
     Args:
-        text (str): The text to be displayed after "C ". Underscores in the text
-                    are replaced by spaces.
+        text (str): The text to be displayed after "C ". Underscores in 
+        the text are replaced by spaces.
 
     Returns:
         str: The string "C " followed by the value of <text> with underscores
@@ -66,8 +66,8 @@ def python_is_cool(text="is cool"):
     dynamic URL parameter.
 
     Args:
-        text (str): The text to be displayed after "Python ". Underscores in the
-                    text are replaced by spaces. Defaults to "is cool" if not
+        text (str): The text to be displayed after "Python ". Underscores in
+          the text are replaced by spaces. Defaults to "is cool" if not
                     provided.
 
     Returns:
