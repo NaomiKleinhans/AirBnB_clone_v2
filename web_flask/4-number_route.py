@@ -12,7 +12,7 @@ The application listens on 0.0.0.0:5000 and has the following routes:
   it defaults to "is cool".
 - '/number/<int:n>' which returns a string confirming that <n> is a number.
 
-This module demonstrates basic Flask route handling with dynamic URL 
+This module demonstrates basic Flask route handling with dynamic URL
 parameters, default parameter values, and type-specific routing.
 """
 
@@ -49,7 +49,7 @@ def c_is_fun(text):
     Handle the route '/c/<text>' where <text> is a dynamic URL parameter.
 
     Args:
-        text (str): The text to be displayed after "C ". Underscores in the 
+        text (str): The text to be displayed after "C ". Underscores in the
         text are replaced by spaces.
 
     Returns:
@@ -67,7 +67,7 @@ def python_is_cool(text="is cool"):
     dynamic URL parameter.
 
     Args:
-        text (str): The text to be displayed after "Python ". Underscores in 
+        text (str): The text to be displayed after "Python ". Underscores in
         the text are replaced by spaces. Defaults to "is cool" if not provided.
 
     Returns:
@@ -86,7 +86,7 @@ def number_route(n):
         n (int): The number to be confirmed.
 
     Returns:
-        str: The string "<n> is a number", confirming that <n> is a valid 
+        str: The string "<n> is a number", confirming that <n> is a valid
         number.
     """
     return f"{n} is a number"
