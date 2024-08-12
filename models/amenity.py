@@ -1,10 +1,8 @@
-#!/usr/bin/python3
-"""This module creates a Amenity class"""
-
+from sqlalchemy import Column, String
 from models.base_model import BaseModel, Base
 
 
 class Amenity(BaseModel, Base):
-    """Class for managing amenity objects"""
+    __tablename__ = 'amenities'
 
-    name = ""
+    name = Column(String(128), nullable=False)
