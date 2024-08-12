@@ -1,10 +1,25 @@
 #!/usr/bin/python3
-"""This module creates a User class"""
+"""This module creates a State class"""
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+import models
+from models.city import City
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     """Class for managing state objects"""
+    __tablename__ = 'states'
+    name = Column(String(128), nullable=False)
 
-    name = ""
+    cities = relationship("City", backref="state",
+                          cascade="all, delete-orphan")
+
+    @property
+    def cities(self):
+        """Getter for the cities linked to the current state"""
+        if models.storage_type != 'db':
+            # Return the list of City objects linked to the current State
+            return [city for city in models.storage.all(City).values() if city.state_id == self.id]
+        return self.cities

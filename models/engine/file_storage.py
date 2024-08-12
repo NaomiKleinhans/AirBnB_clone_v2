@@ -93,3 +93,7 @@ class FileStorage:
                          "text": str}
         }
         return attributes
+    
+    def close(self):
+        """Call the reload method to deserialize the JSON file to objects."""
+        self.reload()
