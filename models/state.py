@@ -20,6 +20,6 @@ class State(BaseModel, Base):
     def cities(self):
         """Getter for the cities linked to the current state"""
         if models.storage_type != 'db':
-            return [city for city in models.storage.all(City).values()
-                    if city.state_id == self.id]
+            # Return the list of City objects linked to the current State
+            return [city for city in models.storage.all(City).values() if city.state_id == self.id]
         return self.cities
