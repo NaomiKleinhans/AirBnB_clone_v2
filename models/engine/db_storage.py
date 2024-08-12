@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Module for DBStorage class."""
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 from models.base_model import Base
 from models.user import User
 from models.state import State
@@ -9,6 +9,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+import os
 
 
 class DBStorage:
@@ -19,10 +20,13 @@ class DBStorage:
     def __init__(self):
         """Instantiate a new DBStorage object"""
         # Create the engine and bind it to the session
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            user, passwd, host, db))
-        Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine))
+    user = os.getenv('HBNB_MYSQL_USER')
+    passwd = os.getenv('HBNB_MYSQL_PWD')
+    host = os.getenv('HBNB_MYSQL_HOST')
+    db = os.getenv('HBNB_MYSQL_DB')
+    self.__engine = create_engine(
+        f'mysql+mysqldb://{user}:{passwd}@{host}/{db}', pool_pre_ping=True)
+    self.__session = sessionmaker(bind=self.__engine)()
 
     def all(self, cls=None):
         """Query on the current database session"""
