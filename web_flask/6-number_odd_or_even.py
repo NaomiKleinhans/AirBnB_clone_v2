@@ -67,18 +67,11 @@ def number_template(n):
     return render_template('5-number.html', n=n)
 
 
-@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
+@app.route('/number_odd_or_even/<int:n>')
 def number_odd_or_even(n):
-    """
-    Displays an HTML page at the /number_odd_or_even/<n> route,
-    showing whether
-    the number n is odd or even. The page contains an H1 tag with
-    'Number: n is odd/even'.
-    """
-
-    status = "even" if n % 2 == 0 else "odd"
-    return render_template('number_odd_or_even.html', number=n, status=status)
-
+    """Return HTML page with the number and its odd/even status"""
+    evenness = "even" if n % 2 == 0 else "odd"
+    return render_template('number_odd_or_even.html', n=n, evenness=evenness)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
