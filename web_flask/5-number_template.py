@@ -39,7 +39,7 @@ def c_is_fun(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_is_cool(text="is cool"):
     """Displays 'Python ' followed by the value of the text variable.
-    The default value of text is 'is cool'. Underscores in the text 
+    The default value of text is 'is cool'. Underscores in the text
     variable are replaced with spaces.
     """
     return "Python " + text.replace('_', ' ')
