@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This script starts a Flask web application with several routes that 
+This script starts a Flask web application with several routes that
 display different text or render HTML templates based on the URL.
 The web application listens on 0.0.0.0, port 5000.
 """
@@ -29,7 +29,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c_is_fun(text):
     """
-    Displays 'C ' followed by the value of the text variable at 
+    Displays 'C ' followed by the value of the text variable at
     the /c/<text> route.
     Underscores in the text variable are replaced with spaces.
     """
@@ -40,9 +40,9 @@ def c_is_fun(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_is_cool(text="is cool"):
     """
-    Displays 'Python ' followed by the value of the text variable 
+    Displays 'Python ' followed by the value of the text variable
     at the /python/(<text>) route.
-    The default value of text is 'is cool'. Underscores in the 
+    The default value of text is 'is cool'. Underscores in the
     text variable are replaced with spaces.
     """
     return "Python " + text.replace('_', ' ')
@@ -51,7 +51,7 @@ def python_is_cool(text="is cool"):
 @app.route('/number/<int:n>', strict_slashes=False)
 def number_route(n):
     """
-    Displays 'n is a number' at the /number/<n> route, but only 
+    Displays 'n is a number' at the /number/<n> route, but only
     if n is an integer.
     """
     return f"{n} is a number"
@@ -60,7 +60,7 @@ def number_route(n):
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template(n):
     """
-    Displays an HTML page with an H1 tag saying 'Number: n' 
+    Displays an HTML page with an H1 tag saying 'Number: n'
     at the /number_template/<n> route.
     The HTML page is rendered only if n is an integer.
     """
@@ -70,9 +70,9 @@ def number_template(n):
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def number_odd_or_even(n):
     """
-    Displays an HTML page at the /number_odd_or_even/<n> route, 
+    Displays an HTML page at the /number_odd_or_even/<n> route,
     showing whether
-    the number n is odd or even. The page contains an H1 tag with 
+    the number n is odd or even. The page contains an H1 tag with
     'Number: n is odd/even'.
     """
     odd_or_even = "even" if n % 2 == 0 else "odd"
